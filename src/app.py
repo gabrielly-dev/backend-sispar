@@ -25,12 +25,15 @@ swagger_config = {
     "specs_route": "/apidocs/"
 }
 
-def create_app():
+def create_app(test_config=None):
     app = Flask(__name__) # <-- instancia do Flask
     CORS(app, origins="*") # <---- A politica de CORS seja implementada em TODA A APLICAÇÃO 
     app.register_blueprint(bp_colaborador)
     app.register_blueprint(bp_reembolso)
-    app.config.from_object(Config)
+    if test_config:
+        app.config.from_object(test_config)
+    else:
+        app.config.from_object(Config)
     
     db.init_app(app) # Inicia a conexão com o banco de dados
 
@@ -40,4 +43,4 @@ def create_app():
     
     with app.app_context(): # Se as tabelas não existem, crie.
         db.create_all()
-    return app   
+    return app

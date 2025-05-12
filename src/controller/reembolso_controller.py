@@ -41,6 +41,12 @@ def pegar_todos_reembolsos():
 @swag_from('../docs/reembolso/solicitar_reembolso.yml')
 def solicitar_reembolso():
     dados = request.get_json()
+
+    required_fields = ['colaborador', 'empresa', 'num_prestacao', 'descricao', 'data', 'tipo_reembolso', 'centro_custo', 'moeda', 'valor_faturado']
+    missing_fields = [field for field in required_fields if not dados.get(field)]
+    if missing_fields:
+        return jsonify({'mensagem': f'Campos obrigatórios faltando ou inválidos: {", ".join(missing_fields)}'}), 400
+
     data_str = dados.get('data')
     data_obj = None
     if data_str:

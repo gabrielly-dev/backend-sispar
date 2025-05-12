@@ -2,12 +2,13 @@ import pytest # Traz a biblioteca de testes
 import time # Manipular tempo
 from src.model.colaborador_model import Colaborador
 from src.app import create_app
+from config import TestConfig
 
 #-------------------------CONFIGURAÇÕES PARA O TESTE--------------------------------
 
 @pytest.fixture # Identificar funções de configurações para o teste
 def app():
-    app = create_app()
+    app = create_app(test_config=TestConfig)
     yield app
     
 @pytest.fixture

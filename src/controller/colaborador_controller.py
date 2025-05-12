@@ -49,6 +49,11 @@ def pegar_dados_todos_colaboradores():
 def cadastrar_novo_colaborador(): 
     
     dados_requisicao = request.get_json() 
+
+    required_fields = ['nome', 'email', 'senha', 'cargo', 'salario']
+    missing_fields = [field for field in required_fields if field not in dados_requisicao]
+    if missing_fields:
+        return jsonify({'mensagem': f'Campos obrigatórios faltando: {", ".join(missing_fields)}'}), 400
     
     novo_colaborador = Colaborador(
         nome=dados_requisicao['nome'], # Pegue do json o valor relacionado a chave nome

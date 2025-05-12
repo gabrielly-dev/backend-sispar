@@ -15,7 +15,7 @@ swagger_config = {
     "specs": [
         {
             "endpoint": "apispec", # <-- Da um nome de referencia para a documentacao
-            "route": "/apispec.json/", # <- Rota do arquivo JSON para a construção da documentação
+            "route": "/apispec.json", # <- Rota do arquivo JSON para a construção da documentação (removed trailing slash)
             "rule_filter": lambda rule: True, # <-- Todas as rotas/endpoints serão documentados
             "model_filter": lambda tag: True, # <-- Especificar quuais modelos da entidade serão documentados
         }

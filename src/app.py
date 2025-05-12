@@ -25,6 +25,8 @@ swagger_config = {
     "specs_route": "/apidocs/"
 }
 
+from flask import redirect
+
 def create_app(test_config=None):
     app = Flask(__name__) # <-- instancia do Flask
     CORS(app, origins="*") # <---- A politica de CORS seja implementada em TODA A APLICAÇÃO 
@@ -40,6 +42,10 @@ def create_app(test_config=None):
     jwt = JWTManager(app)  # Inicializa o JWTManager
     
     Swagger(app, config=swagger_config)
+
+    @app.route('/')
+    def index():
+        return redirect('/apidocs/')
     
     with app.app_context(): # Se as tabelas não existem, crie.
         db.create_all()
